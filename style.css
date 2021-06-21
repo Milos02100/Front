@@ -1,0 +1,107 @@
+.container{
+    display: flex;
+    flex-direction: row;
+    background-color: #b3cdff;
+    box-shadow: 5px 5px 8px gray;
+}
+
+.left{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(0, 0, 0, .2);
+    border-right: 0px;
+    flex-grow: 1;
+    
+}
+
+.insertForm{
+    display: flex;
+    flex-direction: column;
+    align-items: initial;
+    padding: 25px;
+    
+}
+
+.insertBtn{
+    margin-top: 20px;
+}
+
+.titleTaskInsert{
+    font-size: 21px;
+    margin-bottom: 21px;
+}
+
+.right{
+    display: flex;
+    flex-grow: 3;
+    
+}
+
+.boardForm{
+    border: 1px solid rgba(0, 0, 0, .2);
+    border-left: 0px;
+    padding: 20px;
+    width: 100%;
+}
+
+.boardContainer{
+    
+    padding: 20px;
+    border: 1px solid rgba(0, 0, 0, .2);
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    
+}
+
+.task{
+    border:1px solid;
+    margin-top:10px;
+    height: 20px;
+    padding: 5px;
+
+}
+
+.deleteBtn{
+    background-color: #ff2424;
+    border: none;
+    float: right;
+    margin-left: 5px;
+    border-radius: 25px;
+    cursor: pointer;
+    color: antiquewhite;
+ 
+}
+
+
+.taskDone{
+    background-color: chartreuse;
+}
+
+.taskStuck{
+    background-color: red;
+}
+
+.taskWorkingOnIt{
+    background-color: orange;
+}
+
+.taskDidntStart{
+    background-color: grey;
+}
+
+.boardTitle{
+    font-size: 20px;
+}
+
+
+.assignTaskBoard{
+
+    color: #1ac6ed;
+    font-size: 17px;
+    float: right;
+
+}
+
+.mrg{
+    margin-right: 10px;
+}
