@@ -54,6 +54,10 @@
 }
 
 .task{
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    width: 100%;
     border:1px solid;
     margin-top:10px;
     height: 20px;
@@ -61,12 +65,20 @@
 
 }
 
+.taskInner{
+    flex:1;
+}
+
+/*@media (max-width: 800px) {
+    .task {
+      flex-direction: column;
+}*/
+
 .deleteBtn{
     background-color: #ff2424;
     border: none;
-    float: right;
-    margin-left: 5px;
-    border-radius: 25px;
+   
+    margin-top: 10px;
     cursor: pointer;
     color: antiquewhite;
  
@@ -96,12 +108,21 @@
 
 .assignTaskBoard{
 
-    color: #1ac6ed;
+    color: #474747;
     font-size: 17px;
     float: right;
 
 }
 
 .mrg{
-    margin-right: 10px;
+    /*margin-right: 10px;*/
+    flex:1;
+}
+
+.statusSelect{
+    float: right;
+}
+
+.deleteLab{
+    margin-top: 50px;
 }

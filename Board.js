@@ -116,8 +116,43 @@ export class Board{
         insertBtn.setAttribute("value", "Save");
         insertBtn.onclick=(ev)=>{this.InsertNewTask()};
         insertForm.appendChild(insertBtn);
+        //delete
+
+        var deleteLab=document.createElement("label");
+        deleteLab.className="deleteLab";
+        deleteLab.innerHTML="Delete:";
+        insertForm.appendChild(deleteLab);
+
+        var inputDeleteTaskDDL=document.createElement("select");
+        inputDeleteTaskDDL.className="inputDeleteTaskDDL"
+        insertForm.appendChild(inputDeleteTaskDDL);
+
+        this.FillDeleteTaskDDL(inputDeleteTaskDDL);
+
+        var deleteBtn = document.createElement("input");
+        deleteBtn.className="deleteBtn";
+        deleteBtn.setAttribute("type", "button");
+        deleteBtn.setAttribute("value", "Delete");
+        deleteBtn.onclick=(ev)=>{this.DeleteTask()};
+        insertForm.appendChild(deleteBtn);
 
         parent.appendChild(insertForm);
+    }
+
+    FillDeleteTaskDDL(parent){
+        fetch("https://localhost:5001/Board/ReturnTask").then(p=>{
+            p.json().then(data=>{
+            data.forEach(tas=>{
+            
+                var z = document.createElement("option");
+                z.setAttribute("value", tas.taskID);
+                var t = document.createTextNode(tas.title);
+                z.appendChild(t);
+    
+                parent.appendChild(z);
+            });
+        });
+        });
     }
 
     InsertNewTask(){
@@ -151,7 +186,11 @@ export class Board{
         
         })
         
-        location.reload();
+        setTimeout(
+            function() {
+                location.reload();
+            }, 1000);
+        
 
         //call api insert , refresh boards
         
@@ -324,7 +363,7 @@ export class Board{
                 if(tas.developer!=null){
                     
                     var assignTask=document.createElement("label");
-                    assignTask.className="assignTaskBoard";
+                    assignTask.classList.add("assignTaskBoard","mrg");
                     assignTask.innerHTML=tas.developer.name;
 
                     task.appendChild(assignTask);
@@ -338,24 +377,21 @@ export class Board{
             });
             });
 
-            var statusTask=document.createElement("label");
-            statusTask.className="statusTask";
-            statusTask.innerHTML="Status:";
-            task.appendChild(statusTask);
+            
 
             var inputStatusDDL=document.createElement("select");
-            inputStatusDDL.className="statusSelect";
+            inputStatusDDL.classList.add("statusSelect","mrg");
 
             inputStatusDDL.onchange=(ev)=>{this.TaskColor()};
             task.appendChild(inputStatusDDL);
 
-            var deleteBtn = document.createElement("input");
-            deleteBtn.classList.add("deleteBtn",t.TaskID);
+            //var deleteBtn = document.createElement("input");
+            //deleteBtn.classList.add("deleteBtn",t.TaskID);
             
-            deleteBtn.setAttribute("type", "button");
-            deleteBtn.setAttribute("value", "Delete");
-            deleteBtn.onclick=(ev)=>{this.DeleteTask()};
-            task.appendChild(deleteBtn);
+            //deleteBtn.setAttribute("type", "button");
+            //deleteBtn.setAttribute("value", "Delete");
+            //deleteBtn.onclick=(ev)=>{this.DeleteTask()};
+            //task.appendChild(deleteBtn);
             
             this.FillStatus(inputStatusDDL,t.Status);
 
@@ -371,10 +407,22 @@ export class Board{
         this.TaskColor();
     }
 
-    DeleteTask(e){
+    DeleteTask(){
+        var taskID=document.querySelector(".inputDeleteTaskDDL").value;
 
-        console.log(e)
-        //var e=document.qu
+        fetch('https://localhost:5001/Board/DeleteTask/'+taskID, {
+        method: 'DELETE'
+        
+
+        
+        });
+        
+        setTimeout(
+            function() {
+                location.reload();
+            }, 1000);
+       
+        
     }
 
     FillStatus(parent,status){
