@@ -381,17 +381,12 @@ export class Board{
 
             var inputStatusDDL=document.createElement("select");
             inputStatusDDL.classList.add("statusSelect","mrg");
-
-            inputStatusDDL.onchange=(ev)=>{this.TaskColor()};
+            inputStatusDDL.setAttribute("name",t.TaskID);
+            
+            inputStatusDDL.onchange=(ev)=>{this.TaskColor(t.TaskID)};
             task.appendChild(inputStatusDDL);
 
-            //var deleteBtn = document.createElement("input");
-            //deleteBtn.classList.add("deleteBtn",t.TaskID);
-            
-            //deleteBtn.setAttribute("type", "button");
-            //deleteBtn.setAttribute("value", "Delete");
-            //deleteBtn.onclick=(ev)=>{this.DeleteTask()};
-            //task.appendChild(deleteBtn);
+           
             
             this.FillStatus(inputStatusDDL,t.Status);
 
@@ -404,7 +399,7 @@ export class Board{
 
         parent.appendChild(boardContainer);
         
-        this.TaskColor();
+        this.TaskColor(0);
     }
 
     DeleteTask(){
@@ -412,8 +407,6 @@ export class Board{
 
         fetch('https://localhost:5001/Board/DeleteTask/'+taskID, {
         method: 'DELETE'
-        
-
         
         });
         
@@ -446,7 +439,13 @@ export class Board{
     }
 
     
-    TaskColor(){
+    TaskColor(id){
+        
+        if(id!=0){
+
+            this.EditTask(id);
+
+        }
         
         var list=document.querySelectorAll(".task")
       
@@ -481,6 +480,34 @@ export class Board{
            
             
         });
+
+    }
+
+    EditTask(id){
+
+        var opt=document.getElementsByName(id)[0].value;
+        var edit;
+        this.ListTask.forEach(task=>{
+            if(task.TaskID==id){
+                edit={
+                    "taskID": task.TaskID,
+                    "title": task.Title,
+                    "note": task.Note,
+                    "date": task.Date,
+                    "important": task.important,
+                    "status": opt
+                }
+            }
+        });
+        
+        fetch('https://localhost:5001/Board/EditTask', {
+        method: 'PUT', 
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(edit)
+        
+        })
 
     }
     
