@@ -33,7 +33,7 @@ export class Board{
         else{
             this.PrikaziListuBoardova(right);
         }
-
+        this.TaskColor(0);
     
     }
 
@@ -391,15 +391,17 @@ export class Board{
             this.FillStatus(inputStatusDDL,t.Status);
 
             boardInfo.appendChild(task)
-
+            
         });
 
         boardContainer.appendChild(boardInfo)
 
 
         parent.appendChild(boardContainer);
+
         
-        this.TaskColor(0);
+        //this.TaskColor(0);
+        
     }
 
     DeleteTask(){
@@ -447,8 +449,8 @@ export class Board{
 
         }
         
-        var list=document.querySelectorAll(".task")
-      
+        var list=document.querySelectorAll(".task");
+        
         list.forEach((task,index) => {
             
             var t=document.querySelectorAll(".statusSelect")[index].value;
